@@ -135,7 +135,7 @@ Lets format our partitions.
 # mkfs.btrfs -L BTROOT /dev/mapper/cryptroot
 ```
 \
-Now we have to mount our partitions.
+Now we have to mount our root partitions.
 ```
 # mkdir /mnt/root
 # mount -t btrfs -o defaults,noatime,compress=lzo,autodefrag /dev/mapper/cryptroot /mnt/root/
@@ -172,7 +172,7 @@ Activate the swap file.
 ```
 # swapon /mnt/gentoo/swap/swapfile
 ```
-\
+
 ### Downloading, varifying and unpacking stage3
 Enter gentoos text based download page.
 ```
@@ -249,10 +249,10 @@ We have to adjust one more file.
 # nano ./etc/locale.conf
 ```
 
-_/mnt/gentoo/etc/locale.gconf_
+_/mnt/gentoo/etc/locale.conf_
 ```
 LANG="en_US.UTF-8 UTF-8"
-LC_COLLATE="C.UTF- 8 UTF-8"
+LC_COLLATE="C.UTF-8 UTF-8"
 ```
 
 ### Check clock
@@ -321,8 +321,8 @@ LABEL=BTROOT            /                   btrfs         defaults,noatime,compr
 LABEL=BTROOT            /home               btrfs         defaults,noatime,compress=lzo,autodefrag,discard=async,subvol=home          0         0
 LABEL=BTROOT            /swap               btrfs         defaults,noatime,compress=lzo,autodefrag,discard=async,subvol=swap          0         0
 /swap/swapfile          none                swap          defaults                                                                    0         0
-UUID=<boot-part-uuid>   /boot               vfat          umask=007                                                                   0         1
-UUID=<boot-part-uuid>   /efi                vfat          umask=007                                                                   0         1
+UUID=<boot-part-uuid>   /boot               vfat          umask=077                                                                   0         1
+UUID=<boot-part-uuid>   /efi                vfat          umask=077                                                                   0         1
 ```
 
 ### Setup grub
@@ -364,9 +364,15 @@ Unzip the file.
 # rm ./main.zip
 ```
 \
+Remove premade portage configs.
+```
+# rm -rf ./etc/portage/package.accept_keywords
+# rm -rf ./etc/portage/package.use
+```
+\
 Move the files into the right directories.
 ```
-# mv ./my-portage-configs/* ./etc/portage/
+# mv ./my-portage-configs-main/* ./etc/portage/
 # rm -r ./my-portage-configs/
 # mkdir ./etc/portage/env
 # mv ./etc/portage/no-lto ./etc/portage/env/
@@ -386,9 +392,9 @@ VIDEO_CARDS="amdgpu radeonsi intel"
 ```
 The marked video drivers are for a system that has a intel and a amd gpu. 'intel i915' for intel hd 3000 and older. 
 \
-Select a mirror that is close to you.
+Select a mirror that is close to you. (Choose at least one https and one rsync mirror.)
 ```
-# mirrorselect -i -o
+# mirrorselect -i -o >> ./etc/portage/make.conf
 ```
 1. Select with 'space'
 2. Apply with 'enter'
@@ -490,6 +496,29 @@ Recompile every application in our stage3 to compile it with our own flags/optim
 Emerge Rust.
 ```
 # emerge dev-lang/rust --ask
+```
+> [!NOTE]
+> This will also take a long time.
+
+Adjust config for Rust.
+```
+# nano /etc/portage/package.use
+```
+
+_/etc/portage/package.use_
+```
+...
+dev-lang/rust nightly rust-analyzer rust-src rustfmt system-bootstrap
+...
+```
+
+### Install core packages
+Emerge all core packages.
+```
+# emerge --ask sys-kernel/gentoo-sources sys-kernel/genkernel sys-kernel/installkernel sys-kernel/linux-firmware \
+> sys-fs/cryptsetup sys-fs/btrfs-progs sys-block/parted sys-boot/grub sys-apps/sysvinit sys-auth/seatd sys-apps/dbus sys-apps/pciutils sys-process/cronie \
+> net-misc/chrony net-misc/networkmanager app-admin/sysklogd app-admin/doas app-shells/bash-completion dev-vcs/git \
+> app-editors/neovim
 ```
 > [!NOTE]
 > This will also take a long time.
