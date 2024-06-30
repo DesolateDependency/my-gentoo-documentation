@@ -485,3 +485,11 @@ Recompile every application in our stage3 to compile it with our own flags/optim
 ```
 > [!NOTE]
 > This will probably take a long time.
+
+### Compile Rust language compiler
+Emerge Rust.
+```
+# emerge dev-lang/rust --ask
+```
+> [!NOTE]
+> This will also take a long time.
