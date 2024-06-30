@@ -424,3 +424,64 @@ Chroot into root system.
 # source /etc/profile
 # export PS1="(chroot) ${PS1}"
 ```
+
+### Applying localization configurations
+Syncronize portage with mirrors.
+```
+# emerge-webrsync
+# emerge --sync --quiet
+```
+\
+Sync timezone config.
+```
+# emerge --config sys-libs/timezone-data
+```
+\
+Generate locales.
+```
+# locale-gen
+```
+\
+Update environment variables for this terminal.
+```
+# env-update
+```
+\
+Restart terminal.
+```
+# source /etc/profile
+# export PS1="(chroot) ${PS1}"
+```
+
+### Set cpu flags
+Install cpuid2cpuflags.
+```
+# emerge app-portage/cpuid2cpuflags
+```
+\
+Run cpuid2cpuflags.
+```
+# cpuid2cpuflags
+```
+This will output the flags that should be used for the cpu.
+
+Now we can add those flags to our make.conf file like this. It is recommended to do this in a separate tty for ease of use (alt + f1/f2/f3/...).
+```
+# nano /etc/portage/make.conf
+```
+
+_/etc/portage/make.conf_
+```
+...
+# Compilation flags
+CPU_FLAGS_X86="<cpu-flags>"
+...
+```
+
+### Recompiling Everything
+Recompile every application in our stage3 to compile it with our own flags/optimizations instead of using the precompiled ones.
+```
+# emerge --emptytree -a -1 @installed
+```
+> [!NOTE]
+> This will probably take a long time.
