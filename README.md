@@ -522,3 +522,103 @@ Emerge all core packages.
 ```
 > [!NOTE]
 > This will also take a long time.
+
+### Configure doas
+Create a doas.conf.
+```
+# nano /etc/doas.conf
+```
+
+_/etc/doas.conf_
+```
+permit :wheel
+```
+\
+Adjust permissions for doas.conf.
+```
+# chown -c root:root /etc/doas.conf
+# chmod -c 0400 /etc/doas.conf
+```
+
+### Configuring services
+Service setup.
+```
+# rc-update add seatd boot
+# rc-update add dbus boot
+# rc-update add NetworkManager boot
+# rc-update add sysklogd default
+# rc-update add chronyd default
+# rc-update add cronie default
+```
+\
+Replace the service that sets the hostname.
+```
+# rc-update delete hostname boot
+# rc-service NetworkManager start
+# nmcli general hostname <hostname-of-system>
+```
+
+### Managing user accounts
+Set a password for root.
+```
+# passwd
+```
+\
+Setup user account.
+```
+# useradd <username>
+# passwd <username>
+# usermod <username> -aG users
+# usermod <username> -aG wheel
+# usermod <username> -aG disk
+# usermod <username> -aG cdrom
+# usermod <username> -aG floppy
+# usermod <username> -aG audio
+# usermod <username> -aG video
+# usermod <username> -aG input
+# usermod <username> -aG seat
+```
+
+### Compile Kernel
+Tell portage that we are compiling the kernel ourself.
+```
+eselect kernel set 1
+```
+\
+Start setup.
+```
+genkernel --luks --btrfs --keymap --no-splash --oldconfig --save-config --menuconfig --install all
+```
+Make the following changes in the menu. (change setting = space, enter section = enter, leave section = esc, move = arrows) \
+_File systems ---> <*> Btrfs filesystem support_ \
+_Cryptographic API ---> Length-preserving ciphers and modes ---> <*> (XOR Encrypt XOR with ciphertext stealing)_ \
+_Gentoo Linux ---> Support for init systems, system and service managers ---> [ ]_
+\
+Start compiling the kernel by exiting the menu with esc and accept the save configuration prompt with enter.
+
+### Install bootloader
+Install and setup grub.
+```
+# grub-install --target=x86_64-efi --efi-directory /boot/ --removable --recheck
+# grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Rebooting
+Rebooting the system.
+```
+# reboot
+```
+> [!NOTE]
+> Now you can remove the installation device.
+
+### Lock root password
+After logging in with our user account we are locking the root password for safty reasons.
+```
+~ doas -u root passwd -l root
+```
+
+### Connect Wifi
+You can connect over wifi with this menu.
+```
+~ mntui
+```
