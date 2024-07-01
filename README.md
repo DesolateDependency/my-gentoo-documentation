@@ -231,6 +231,21 @@ If we look into the root directory now we can se our familiar linux filestructur
 # ls
 ```
 
+### Adjust swap settings
+Change swap options in config file to allow the swapfile to be in a local filesystem. To do this we have to uncomment these two options.
+```
+# nano ./etc/conf.d/swap
+```
+
+_/mnt/gentoo/etc/conf.d/swap_
+```
+...
+rc_before="!localmount"
+...
+rc_need="netmount"
+...
+```
+
 ### Set locales
 First we have to adjust the locale.gen file. Add or uncomment the locales you need (in this case i am using the us ones).
 Youhave to enter the files like follows.
