@@ -1,4 +1,6 @@
 # My Gentoo documentation
+This is my small little Gentoo documentation that i created and will expand on with everything i do on Gentoo.
+
 1. [Installation guide](installation_guide.md)
 2. [My shortcut cheatsheet](my_shortcut_cheatsheet.md)
 3. [My problems and solutions](my_problems_and_solutions.md)
