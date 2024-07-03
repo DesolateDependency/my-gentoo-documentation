@@ -23,7 +23,12 @@ The LUKS encryption passphrase screen uses a english keyboard layout by default.
 
 \
 **Solution:** \
-The right keyboard layout has to be set in the grub boot parameters to change the grub keymap for the LUKS encryption.
+The right keyboard layout has to be set in the grub boot parameters to change the grub keymap for the LUKS encryption. \
+A list of all available keymaps can be found here.
+```
+# nano /usr/share/genkernel/keymaps
+```
+The listed keymaps, without the '.map' ending, can be used in the configs.
 
 _/etc/default/grub_
 ```
