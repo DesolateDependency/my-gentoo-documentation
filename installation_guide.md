@@ -611,9 +611,21 @@ _Gentoo Linux ---> Support for init systems, system and service managers ---> [ 
 Start compiling the kernel by exiting the menu with esc and accept the save configuration prompt with enter.
 
 ### Install bootloader
-Install and setup grub.
+Install grub.
 ```
 # grub-install --target=x86_64-efi --efi-directory /boot/ --removable --recheck
+```
+\
+Set boot keyboard layout. (Optional, defaults to en) (For luks encryption)
+
+_/etc/default/grub_
+```
+...
+GRUB_CMDLINE_LINUX_DEFAULT="... keymap=de"
+```
+\
+Generate grub boot option configuration.
+```
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
