@@ -616,7 +616,12 @@ Install grub.
 # grub-install --target=x86_64-efi --efi-directory /boot/ --removable --recheck
 ```
 \
-Set boot keyboard layout. (Optional, defaults to en) (For luks encryption)
+Set boot keyboard layout for luks encryption screen. (Optional, defaults to en) \
+A list of all available keymaps can be found here.
+```
+# nano /usr/share/genkernel/keymaps
+```
+The listed keymaps, without the '.map' ending, can be used in the configs.
 
 _/etc/default/grub_
 ```
@@ -624,7 +629,7 @@ _/etc/default/grub_
 GRUB_CMDLINE_LINUX_DEFAULT="... keymap=de"
 ```
 \
-Generate grub boot option configuration.
+Generate grub boot option configuration. (In this case set to the german keyboard layout.)
 ```
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
