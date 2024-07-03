@@ -5,5 +5,9 @@ Check if swap is mounted.
 ```
 Execute as root.
 ```
-~ doas -u root
+~ doas <command>
+```
+Execute as other user.
+```
+~ doas -u <username> <command>
 ```
