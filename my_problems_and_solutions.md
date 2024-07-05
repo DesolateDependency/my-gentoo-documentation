@@ -40,3 +40,9 @@ Don't forget to regenerate the grub boot option configuration after editing the 
 ```
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
+### Screen goes black twice for a moment during OpenRC init
+**Problem:** \
+During the OpenRC init on boot the screen goes black twice for a split for a second.
+
+\
