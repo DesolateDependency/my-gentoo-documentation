@@ -531,7 +531,7 @@ Emerge all core packages.
 ```
 # emerge --ask sys-kernel/gentoo-sources sys-kernel/genkernel sys-kernel/installkernel sys-kernel/linux-firmware \
 > sys-fs/cryptsetup sys-fs/btrfs-progs sys-block/parted sys-boot/grub sys-apps/sysvinit sys-auth/seatd sys-apps/dbus sys-apps/pciutils sys-process/cronie \
-> net-misc/chrony net-misc/networkmanager app-admin/sysklogd app-admin/doas app-shells/bash-completion dev-vcs/git \
+> net-misc/chrony net-misc/networkmanager app-admin/sysklogd app-admin/doas app-shells/bash-completion \
 > app-editors/neovim
 ```
 > [!NOTE]
