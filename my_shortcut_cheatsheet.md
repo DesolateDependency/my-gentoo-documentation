@@ -13,9 +13,9 @@ $ doas -u <username> <command>
 ```
 Install new package.
 ```
-$ doas emerge --ask <package_name>
+# emerge --ask <package_name>
 ```
 Do changes to config files.
 ```
-$ doas dispatch-conf
+# dispatch-conf
 ```
