@@ -35,7 +35,6 @@ ___
 18. [Set keymap](#18-set-keymap)
 19. [Set timezone](#19-set-timezone)
 20. [Create FS tables](#20-create-fs-tables)
-21. [Setup initramfs](#21-setup-initramfs)
 22. [Setup grub](#22-setup-grub)
 23. [Setup portage](#23-setup-portage)
 24. [Change into root](#24-change-into-root)
@@ -47,6 +46,7 @@ ___
 29. [Set cpu flags](#29-set-cpu-flags)
 30. [Updating the @world set](#30-updating-the-world-set)
 31. [Install core packages](#31-install-core-packages)
+21. [Setup initramfs](#21-setup-initramfs)
 32. [Configure doas](#32-configure-doas)
 33. [Configuring services](#33-configuring-services)
 34. [Managing user accounts](#34-managing-user-accounts)
@@ -432,37 +432,6 @@ UUID=<boot-part-uuid>   /boot               vfat          umask=077             
 UUID=<boot-part-uuid>   /efi                vfat          umask=077                                                                   0         1
 ```
 
-### 21. Setup initramfs
-To do this we have to create a configuration in _/etc/dracut.conf.d/_.
-```
-# mkdir /etc/dracut.conf.d
-# nvim /etc/dracut.conf.d/encryption.conf
-```
-
-_/etc/dracut.conf.d/encryption.conf_
-```
-hostonly="yes"
-add_dracutmodules+=" crypt dm rootfs-block "
-kernel_cmdline+=" root=UUID=<uuid-of-cryptroot> rd.luks.uuid=<uuid-of-root-partition> "
-```
-\
-We want to check which kernel we are running on our future machine.
-```
-# ls /lib/modules
-```
-\
-The initramfs has to be build like this.
-````
-dracut --force --kver <kernel-version>
-````
-\
-Now we have to create a crypttab file.
-
-_/etc/crypttab_
-```
-cryptroot UUID=<uuid-of-encrypted-root-partition> none luks
-```
-
 ### 22. Setup grub
 Setup the grub configuration. 
 ```
@@ -686,6 +655,37 @@ Emerge all core packages.
 ```
 > [!NOTE]
 > This will also take a long time.
+
+### 21. Setup initramfs
+To do this we have to create a configuration in _/etc/dracut.conf.d/_.
+```
+# mkdir /etc/dracut.conf.d
+# nvim /etc/dracut.conf.d/encryption.conf
+```
+
+_/etc/dracut.conf.d/encryption.conf_
+```
+hostonly="yes"
+add_dracutmodules+=" crypt dm rootfs-block "
+kernel_cmdline+=" root=UUID=<uuid-of-cryptroot> rd.luks.uuid=<uuid-of-root-partition> "
+```
+\
+We want to check which kernel we are running on our future machine.
+```
+# ls /lib/modules
+```
+\
+The initramfs has to be build like this.
+````
+dracut --force --kver <kernel-version>
+````
+\
+Now we have to create a crypttab file.
+
+_/etc/crypttab_
+```
+cryptroot UUID=<uuid-of-encrypted-root-partition> none luks
+```
 
 ### 32. Configure doas
 Create a doas.conf.
