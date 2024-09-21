@@ -603,7 +603,7 @@ You can list all available profiles with:
 eselect profile list
 ```
 \
-Select a fitting profile your your setup. (In my case i am using the desktop profile)
+Select a fitting profile for your setup. (In my case i am using the desktop profile)
 ```
 # eselect profile set <number-of-profile>
 ```
