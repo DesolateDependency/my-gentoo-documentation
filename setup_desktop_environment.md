@@ -46,24 +46,8 @@ $ usermod greetd -aG seat
 ```
 
 ## Install window manager
-Add USE flags.
-
-_/etc/portage/package.use/qtile_
-```
-x11-libs/cairo X glib opengl svg
-```
-\
-Add qtiles testing version to accept_keywords.
-
-_/etc/portage/package.accept_keywords/qtile_
-```
-x11-wm/qtile ~amd64
-```
-\
-Install Qtile.
-```
-$ emerge -av x11-wm/qtile
-```
+Follow this:
+https://wiki.gentoo.org/wiki/Qtile
 \
 Set keyboard layout.
 
