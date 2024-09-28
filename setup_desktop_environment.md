@@ -10,7 +10,7 @@ gui-apps/tuigreet ~amd64
 \
 Now install display-manager-init, greetd and tuigreet.
 ```
-# doas emerge -av gui-libs/greetd gui-apps/tuigreet
+# doas emerge -av gui-libs/display-manager-init gui-libs/greetd gui-apps/tuigreet
 ```
 \
 Add display-manager-init zu OpenRC.
