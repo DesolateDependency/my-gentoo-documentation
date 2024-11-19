@@ -409,6 +409,10 @@ Now you can write that into the timezone file.
 ```
 # echo "Europe/Berlin" > ./etc/timezone
 ```
+It is also needed here.
+```
+# ln -sf ../usr/share/zoneinfo/Europe/Brussels /etc/localtime
+```
 
 ### 20. Create FS tables
 First we have to figure out the UUIDs of our boot partition. (I recommend to call this command in a separate tty for ease of use (ctsl + alt + f1/f2/f3/...) of copying.)
