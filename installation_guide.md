@@ -261,7 +261,7 @@ Enter gentoos text based download page.
 # links https://distfiles.gentoo.org/releases/amd64/autobuilds
 ```
 1. Navigate to the latest timestamp directory.
-2. Go to the "stage3-amd64-desktop-openrc-..." file
+2. Go to the "stage3-amd64-openrc-..." file
 3. Pess d to download it
 4. Got to the .asc file for this version and download it too
 5. Wait until the downloads are finised (esc -> Downlads -> enter)
@@ -672,6 +672,11 @@ _/etc/dracut.conf.d/encryption.conf_
 hostonly="yes"
 add_dracutmodules+=" crypt dm rootfs-block "
 kernel_cmdline+=" root=UUID=<uuid-of-cryptroot> rd.luks.uuid=<uuid-of-root-partition> "
+```
+\
+We can get the UUIDS like this
+```
+# lsblk --fs
 ```
 \
 We want to check which kernel we are running on our future machine.
