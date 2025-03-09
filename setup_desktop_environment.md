@@ -61,5 +61,3 @@ Install foot.
 ```
 $ emerge -av gui-apps/foot
 ```
-\
-Set foot as the default terminal in qtile.
