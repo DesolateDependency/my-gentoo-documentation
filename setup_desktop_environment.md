@@ -49,6 +49,13 @@ $ usermod greetd -aG seat
 Follow this: \
 https://wiki.gentoo.org/wiki/Sway
 
+Modify Wayland session
+
+_/usr/share/wayland-session/sway.desktop_
+```
+Exec=dbus-run-session sway
+```
+
 Set keyboard layout.
 
 _/etc/environment_
