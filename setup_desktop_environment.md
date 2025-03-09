@@ -47,7 +47,7 @@ $ usermod greetd -aG seat
 
 ## Install window manager
 Follow this: \
-https://wiki.gentoo.org/wiki/Qtile
+https://wiki.gentoo.org/wiki/Sway
 
 Set keyboard layout.
 
